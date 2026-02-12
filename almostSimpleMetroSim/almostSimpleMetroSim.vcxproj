@@ -151,6 +151,7 @@
     <ClInclude Include="703_E.hpp" />
     <ClInclude Include="draw.hpp" />
     <ClInclude Include="includes.h" />
+    <ClInclude Include="mevent.hpp" />
     <ClInclude Include="MGraphics.hpp" />
     <ClInclude Include="rounded_rectangle.h" />
   </ItemGroup>

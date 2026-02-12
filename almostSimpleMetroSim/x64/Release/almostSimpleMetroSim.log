@@ -1,42 +1,12 @@
 ﻿  almostSimpleMetroSim.cpp
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(9,9): error C3646: 'type': unknown override specifier
-  (compiling source file 'almostSimpleMetroSim.cpp')
-  
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(9,2): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-  (compiling source file 'almostSimpleMetroSim.cpp')
-  
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(10,9): error C3646: 'sender': unknown override specifier
-  (compiling source file 'almostSimpleMetroSim.cpp')
-  
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(10,2): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-  (compiling source file 'almostSimpleMetroSim.cpp')
-  
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\703_E.hpp(6,9): error C2039: 'sender': is not a member of 'MEvent'
-  (compiling source file 'almostSimpleMetroSim.cpp')
-      C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(8,8):
-      see declaration of 'MEvent'
-  
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\703_E.hpp(6,33): error C2039: 'type': is not a member of 'MEvent'
-  (compiling source file 'almostSimpleMetroSim.cpp')
-      C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(8,8):
-      see declaration of 'MEvent'
-  
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\tunnel.hpp(18,25): warning C4834: discarding return value of function with [[nodiscard]] attribute
-  (compiling source file 'almostSimpleMetroSim.cpp')
-  
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\almostSimpleMetroSim.cpp(76,20): error C2039: 'type': is not a member of 'MEvent'
-      C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(8,8):
-      see declaration of 'MEvent'
-  
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\almostSimpleMetroSim.cpp(77,20): error C2039: 'sender': is not a member of 'MEvent'
-      C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(8,8):
-      see declaration of 'MEvent'
-  
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\almostSimpleMetroSim.cpp(46,53): error C2102: '&' requires l-value
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\almostSimpleMetroSim.cpp(46,22): warning C4834: discarding return value of function with [[nodiscard]] attribute
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\almostSimpleMetroSim.cpp(132,25): warning C4834: discarding return value of function with [[nodiscard]] attribute
   train_base.hpp
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(9,9): error C3646: 'type': unknown override specifier
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(9,2): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(10,9): error C3646: 'sender': unknown override specifier
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(10,2): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
   tunnel.hpp
-C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\tunnel.hpp(18,25): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 631 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  almostSimpleMetroSim.vcxproj -> C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\x64\Release\almostSimpleMetroSim.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.

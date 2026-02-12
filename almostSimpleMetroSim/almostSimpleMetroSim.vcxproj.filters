@@ -41,5 +41,8 @@
     <ClInclude Include="rounded_rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mevent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,17 +5,7 @@
 #include <mutex>
 #include <vector>
 #include <string>
-struct MEvent {
-	string type;
-	string sender;
-	void* data = nullptr;
-
-	sf::Keyboard::Key key = sf::Keyboard::Key::Unknown;
-	bool alt = false;
-	bool control = false;
-	bool shift = false;
-	bool system = false;
-};
+#include "mevent.hpp"
 
 using namespace std;
 using namespace sf;
@@ -23,44 +13,41 @@ struct wire {
 	int self = 0;
 	int diff = 0;
 };
-class Train
+class Ent_Train
 {
 protected:
-	Texture empty;
 	struct fSprite {
-		fSprite(Sprite* spr) : sprite(*spr) {
-			relPos = spr->getPosition();
-		}
 		Sprite sprite;
 		Vector2f relPos;
+
+		fSprite(const Sprite& spr) : sprite(spr) {
+			relPos = spr.getPosition();
+		}
 	};
 
 	int mmlength = 19166;
 	array<wire, 32> wireBus;
-	float TrainLine;
-	float BreakLine;
+	float TrainLine = 0.f;
+	float BreakLine = 0.f;
 	vector<fSprite> sprites;
 	Vector2f scale;
-	Vector2f pos;
+	Vector2f pos{};
 	int entityId;
-public:
-	struct simData {
-		int* mmlength;
-		array<wire, 32>* wireBus;
-		float* TrainLine;
-		float* BreakLine;
-		vector<fSprite>* sprites;
-		Vector2f* scale;
-		Vector2f* pos;
-		int* entityId;
-		vector<MEvent>& events;
-	};
-	Train(vector<Sprite>* sprites, int id) {
-		entityId = id;
-		for (Sprite sprite : *sprites) {
-			this->sprites.push_back(fSprite(&sprite));
 
-		}
+	void addSprite(const Sprite& spr) {
+		sprites.emplace_back(spr);
+	}
+
+public:
+	Ent_Train(int id) {
+		entityId = id;
+	}
+	void setPos(Vector2f newPos) {
+		pos = newPos;
+		updatePos();
+	}
+	Vector2f getPos() {
+		return pos;
 	}
 	array<wire, 32> sendWires() {
 		return wireBus;
@@ -77,11 +64,11 @@ public:
 		}
 	}
 	void updatePos() {
-		for (auto sprite : sprites) {
+		for (auto& sprite : sprites) {
 			sprite.sprite.setPosition(sprite.relPos + pos);
 		}
 	}
-	Sprite getSprite(int id) {
+	Sprite& getSprite(int id) {
 		return sprites[id].sprite;
 	}
 	int getId() {
@@ -94,11 +81,14 @@ public:
 
 	vector<MEvent> events;
 protected:
-	vector<MEvent>(*work)(simData*);
+	virtual vector<MEvent> work(vector<MEvent>* input) {
+		vector<MEvent> res;
+		return res;
+	}
 public:
 	void sim(vector<MEvent>* input) {
-		simData data{ &mmlength,&wireBus, &TrainLine, &BreakLine, &sprites, &scale, &pos, &entityId, *input };
-		vector<MEvent> res = work(&data);
+		vector<MEvent> res = work(input);
+		events.clear();
 		for (MEvent m : res) {
 			events.push_back(m);
 		}

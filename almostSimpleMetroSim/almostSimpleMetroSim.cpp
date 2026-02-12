@@ -6,12 +6,15 @@
 #include <atomic>
 #include <chrono>
 #include <optional>
+#include <vector>
+#include <string>
+#include "mevent.hpp"
 #include "train_base.hpp"
 #include "703_E.hpp"
 #include "draw.hpp"
 #include "tunnel.hpp"
 #include "includes.h"
-
+ 
 using namespace std;
 using namespace sf;
 //using E = Train{ &sprs, 10 }
@@ -39,87 +42,40 @@ private:
     vector<MEvent> eventLog;
 };
 
-void draw(vector<Train>& consist, const vector<sf::Texture>& tunnels, MEventBus& bus, atomic<bool>& running) {
-    vector<sf::Sprite*> wagonSprites;
-    for (size_t i = 0; i < consist.size(); i++)
-    {
-        wagonSprites.push_back(&consist[i].getSprite(0));
-    }
+void renderingThread(sf::RenderWindow* window, vector<unique_ptr<Ent_Train>>& carriages, atomic<bool>& running) {
+    window->setActive(true);
 
-    for (auto& train : consist)
-    {
-        train.setScale();
-    }
+    while (running.load() && window->isOpen()) {
+        window->clear();
 
-    for (int i = 0; i < wagonSprites.size(); i++)
-    {
-        cout << wagonSprites.size() << " " << i;
-
-        float posy = (window.getSize().y / 2 - wagonSprites[i]->getGlobalBounds().size.y / 2);
-        float posx = (float)i * wagonSprites[i]->getGlobalBounds().size.x - 130 * i;
-        Vector2f pos(posx, posy);
-        wagonSprites[i]->setPosition(pos);
-    }
-    while (window.isOpen())
-    {
-
-        while (const optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-            {
-                running.store(false);
-                window.close();
-            }
-            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
-            {
-                MEvent ev;
-                ev.type = "KeyPressed";
-                ev.sender = "window";
-                ev.key = keyPressed->code;
-                ev.alt = keyPressed->alt;
-                ev.control = keyPressed->control;
-                ev.shift = keyPressed->shift;
-                ev.system = keyPressed->system;
-                bus.emit(ev);
-            }
+        for (int i = 0; i < carriages.size(); i++) {
+            window->draw(carriages[i]->getSprite(0));
         }
 
-        window.clear();
-
-        for (int i = 0; i < wagonSprites.size(); i++)
-        {
-            window.draw(*wagonSprites[i]);
-        }
-
-        window.display();
+        window->display();
     }
 }
-//struct MEvent {
-//    string type;
-//    string sender;
-//    void* data;
-//};
-struct consist {
-    vector<Train> carriages;
-    void updatePreassure() {
 
-    }
+struct consist {
+    vector<unique_ptr<Ent_Train>> carriages;
+    void updatePreassure() {
+	}
     void updateWires() {
         array<wire, 32> total;
-        for (Train T : carriages) {
+        for (auto& T : carriages) {
             for (int i = 0; i < 32; i++) {
-                total[i].diff += T.sendWires()[i].self;
+                total[i].diff += T->sendWires()[i].self;
             }
         }
         wire transf;
         array<wire, 32> set;
-        for (Train T : carriages) {
+        for (auto& T : carriages) {
             for (int i = 0; i < 32; i++) {
-                transf.diff = total[i].diff - T.sendWires()[i].self;
-                transf.self = T.sendWires()[i].self;
+                transf.diff = total[i].diff - T->sendWires()[i].self;
+                transf.self = T->sendWires()[i].self;
                 set[i] = transf;
             }
-            T.setWires(set);
+            T->setWires(set);
         }
     }
 };
@@ -133,16 +89,16 @@ void simulator(consist& consist, MEventBus& bus, atomic<bool>& running) {
 
         inputEvents.clear();
         bus.drainTo(inputEvents);
-        for (Train& T : consist.carriages) {
-            for (MEvent m : T.getSentMev()) {
+        for (auto& T : consist.carriages) {
+            for (MEvent m : T->getSentMev()) {
                 inputEvents.push_back(m);
             }
         }
         consist.updatePreassure();
         consist.updateWires();
 
-        for (Train& T : consist.carriages) {
-            T.sim(&inputEvents);
+        for (auto& T : consist.carriages) {
+            T->sim(&inputEvents);
         }
 
         const auto elapsed = chrono::steady_clock::now() - start;
@@ -152,29 +108,61 @@ void simulator(consist& consist, MEventBus& bus, atomic<bool>& running) {
         }
     }
 }
+
 int main()
 {
-    Texture tex("textures\\wagons\\E_kvr.png");
-    Sprite spr(tex);
-    vector<Sprite> sprs;
-    sprs.push_back(spr);
-    consist consist;
-    consist.carriages.push_back(Train(&sprs, 10));
-    consist.carriages.push_back(Train(&sprs, 11));
+    try {
+        consist consist;
+        consist.carriages.push_back(make_unique<Ent_Train_E>(10));
+        consist.carriages.push_back(make_unique<Ent_Train_E>(11));
+        for (auto& train : consist.carriages) {
+            train->setScale();
+        }
+        for (int i = 0; i < consist.carriages.size(); i++) {
+            sf::Sprite sprite = consist.carriages[i]->getSprite(0);
+            float posy = (window.getSize().y / 2 - sprite.getGlobalBounds().size.y / 2);
+            float posx = (float)i * sprite.getGlobalBounds().size.x - 130 * i;
+            Vector2f pos(posx, posy);
+            consist.carriages[i]->setPos(pos);
+            consist.carriages[i]->updatePos();
+        }
 
-    vector<Texture> tunnels;
-    MEventBus bus;
-    atomic<bool> running{ true };
-    thread simulate([&]() { simulator(consist, bus, running); });
+        MEventBus bus;
+        atomic<bool> running{ true };
+        window.setActive(false);
+        thread renderThread(renderingThread, &window, ref(consist.carriages), ref(running));
+        thread simThread([&]() { simulator(consist, bus, running); });
+        while (window.isOpen())
+        {
+            while (const optional event = window.pollEvent())
+            {
+                if (event->is<sf::Event::Closed>())
+                {
+                    running.store(false);
+                    window.close();
+                }
+                else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+                {
+                    MEvent ev;
+                    ev.type = "KeyPressed";
+                    ev.sender = "window";
+                    ev.key = keyPressed->code;
+                    ev.alt = keyPressed->alt;
+                    ev.control = keyPressed->control;
+                    ev.shift = keyPressed->shift;
+                    ev.system = keyPressed->system;
+                    bus.emit(ev);
+                }
+            }
+        }
 
-    draw(consist.carriages, tunnels, bus, running);
-
-    running.store(false);
-    if (simulate.joinable()) {
-        simulate.join();
+        running.store(false);
+        if (renderThread.joinable()) renderThread.join();
+        if (simThread.joinable()) simThread.join();
+        return 0;
     }
-
+    catch (const std::exception& e) {
+        cerr << "Error " << e.what() << endl;
+        return 1;
+    }
 }
-
-
-//6 zadac na kodvars
