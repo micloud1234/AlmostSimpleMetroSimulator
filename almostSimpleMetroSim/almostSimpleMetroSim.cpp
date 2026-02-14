@@ -49,7 +49,9 @@ void renderingThread(sf::RenderWindow* window, vector<unique_ptr<Ent_Train>>& ca
         window->clear();
 
         for (int i = 0; i < carriages.size(); i++) {
-            window->draw(carriages[i]->getSprite(0));
+            for (int j = 0; j < carriages[i]->getSpriteCount(); j++) {
+                window->draw(carriages[i]->getSprite(j));
+			}
         }
 
         window->display();
@@ -98,7 +100,7 @@ void simulator(consist& consist, MEventBus& bus, atomic<bool>& running) {
         consist.updateWires();
 
         for (auto& T : consist.carriages) {
-            T->sim(&inputEvents);
+            T->sim(&inputEvents, 0.01);
         }
 
         const auto elapsed = chrono::steady_clock::now() - start;
