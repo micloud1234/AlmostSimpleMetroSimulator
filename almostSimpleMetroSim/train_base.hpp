@@ -124,17 +124,17 @@ protected:
             for (auto& box : buttons)  box.draw();
             for (auto& sw : switches) sw.draw();
         }
-
-    private:
         vector<mg::Button>  buttons;
         vector<mg::TickBox> switches;
         vector<Sprite>      uiSprites;
+    private:
+
     };
     struct fSprite {
         Sprite sprite;
         Vector2f relPos;
         animDrive anim;
-
+        bool drawn;
         fSprite(const Sprite& spr) : sprite(spr) {
             relPos = spr.getPosition();
         }

@@ -240,23 +240,30 @@ namespace mg {
     public:
         TickBox(Vector2f size, Vector2f pos, const Font& font, string text,
             RenderWindow* window, std::function<void()> callback,
-            Texture& boxTexture, Texture& checkTexture)
+            Texture& boxTexture, Texture& checkTexture, bool managepos = false)
             : Button(size, pos, Color::Transparent, font, text, window, callback),
             box(boxTexture), check(checkTexture), NegativeCheck(checkTexture) {
             box.setPosition(body.getPosition());
-            check.setPosition(body.getPosition());
+            if (!managepos) {
+                
+                check.setPosition(body.getPosition());
+            }
             offsetText(Vector2f(box.getLocalBounds().size.y + 1, 0));
             negCheck = false;
         }
 
         TickBox(Vector2f size, Vector2f pos, const Font& font, string text,
             RenderWindow* window, std::function<void()> callback,
-            Texture& boxTexture, Texture& checkTexture, Texture& negCheckTexture)
+            Texture& boxTexture, Texture& checkTexture, Texture& negCheckTexture, bool managepos = false)
             : Button(size, pos, Color::Transparent, font, text, window, callback),
             box(boxTexture), check(checkTexture), NegativeCheck(negCheckTexture) {
             box.setPosition(body.getPosition());
-            check.setPosition(body.getPosition());
-            NegativeCheck.setPosition(body.getPosition());
+            if (!managepos) {
+               
+                check.setPosition(body.getPosition());
+                NegativeCheck.setPosition(body.getPosition());
+            }
+            
             offsetText(Vector2f(box.getLocalBounds().size.y + 1, 0));
             negCheck = true;
         }
@@ -271,7 +278,8 @@ namespace mg {
         }
 
         void forceFalse() { ticked = false; }
-
+        Sprite check;
+        Sprite NegativeCheck;
     protected:
         void onPress() override {
             tick();
@@ -297,8 +305,6 @@ namespace mg {
         }
 
         Sprite box;
-        Sprite check;
-        Sprite NegativeCheck;
         bool negCheck = false;
         bool ticked = false;
     };
