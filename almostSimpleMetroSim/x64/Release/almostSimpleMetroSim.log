@@ -1,0 +1,97 @@
+﻿  almostSimpleMetroSim.cpp
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\rounded_rectangle.h(51,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'almostSimpleMetroSim.cpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\rounded_rectangle.h(51,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'almostSimpleMetroSim.cpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\rounded_rectangle.h(81,16): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'almostSimpleMetroSim.cpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\rounded_rectangle.h(86,30): warning C4244: '=': conversion from 'float' to 'size_t', possible loss of data
+  (compiling source file 'almostSimpleMetroSim.cpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:         with
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:         [
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:             T=int
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:         ]
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:         and
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:         [
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:             T=float
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:         ]
+  (compiling source file 'almostSimpleMetroSim.cpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:         with
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:         [
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:             T=int
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:         ]
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:         and
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:         [
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:             T=float
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:         ]
+  (compiling source file 'almostSimpleMetroSim.cpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(43,29): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'almostSimpleMetroSim.cpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\703_E.hpp(35,56): warning C4305: 'argument': truncation from 'double' to 'float'
+  (compiling source file 'almostSimpleMetroSim.cpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\703_E.hpp(36,55): warning C4305: 'argument': truncation from 'double' to 'float'
+  (compiling source file 'almostSimpleMetroSim.cpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\703_E.hpp(38,56): warning C4305: 'argument': truncation from 'double' to 'float'
+  (compiling source file 'almostSimpleMetroSim.cpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\703_E.hpp(39,55): warning C4305: 'argument': truncation from 'double' to 'float'
+  (compiling source file 'almostSimpleMetroSim.cpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\almostSimpleMetroSim.cpp(74,22): warning C4834: discarding return value of function with [[nodiscard]] attribute
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\almostSimpleMetroSim.cpp(106,34): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\almostSimpleMetroSim.cpp(138,25): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  train_base.hpp
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\rounded_rectangle.h(51,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'train_base.hpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\rounded_rectangle.h(51,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'train_base.hpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\rounded_rectangle.h(81,16): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'train_base.hpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\rounded_rectangle.h(86,30): warning C4244: '=': conversion from 'float' to 'size_t', possible loss of data
+  (compiling source file 'train_base.hpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:         with
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:         [
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:             T=int
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:         ]
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:         and
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:         [
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:             T=float
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,66): warning C4244:         ]
+  (compiling source file 'train_base.hpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:         with
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:         [
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:             T=int
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:         ]
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:         and
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:         [
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:             T=float
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\MGraphics.hpp(228,54): warning C4244:         ]
+  (compiling source file 'train_base.hpp')
+  
+C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\almostSimpleMetroSim\train_base.hpp(43,29): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  tunnel.hpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 971 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  almostSimpleMetroSim.vcxproj -> C:\Users\Mykhaylo\Documents\GitHub\AlmostSimpleMetroSimulator\x64\Release\almostSimpleMetroSim.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.

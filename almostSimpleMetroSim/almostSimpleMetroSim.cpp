@@ -8,6 +8,7 @@
 #include <optional>
 #include <vector>
 #include <string>
+#include "MGraphics.hpp"
 #include "mevent.hpp"
 #include "train_base.hpp"
 #include "703_E.hpp"
@@ -41,27 +42,10 @@ private:
     mutex mutex_;
     vector<MEvent> eventLog;
 };
-
-void renderingThread(sf::RenderWindow* window, vector<unique_ptr<Ent_Train>>& carriages, atomic<bool>& running) {
-    window->setActive(true);
-
-    while (running.load() && window->isOpen()) {
-        window->clear();
-
-        for (int i = 0; i < carriages.size(); i++) {
-            for (int j = 0; j < carriages[i]->getSpriteCount(); j++) {
-                window->draw(carriages[i]->getSprite(j));
-			}
-        }
-
-        window->display();
-    }
-}
-
 struct consist {
     vector<unique_ptr<Ent_Train>> carriages;
     void updatePreassure() {
-	}
+    }
     void updateWires() {
         array<wire, 32> total;
         for (auto& T : carriages) {
@@ -80,7 +64,26 @@ struct consist {
             T->setWires(set);
         }
     }
+    void draw(RenderWindow& window) {
+        for (auto& T : carriages) {
+            T->draw();
+        }
+    }
 };
+void renderingThread(sf::RenderWindow* window, consist& consist, atomic<bool>& running) {
+    window->setActive(true);
+
+    while (running.load() && window->isOpen()) {
+        window->clear();
+
+        for (auto& carriage : consist.carriages) {
+            carriage->draw();
+            carriage->drawUI();
+        }
+
+        window->display();
+    }
+}
 
 void simulator(consist& consist, MEventBus& bus, atomic<bool>& running) {
     vector<MEvent> inputEvents;
@@ -115,8 +118,9 @@ int main()
 {
     try {
         consist consist;
-        consist.carriages.push_back(make_unique<Ent_Train_E>(10));
-        consist.carriages.push_back(make_unique<Ent_Train_E>(11));
+        consist.carriages.push_back(make_unique<Ent_Train_E>(10, &window));
+        consist.carriages.push_back(make_unique<Ent_Train_E>(11, &window));
+		consist.carriages[0]->isHead = true;
         for (auto& train : consist.carriages) {
             train->setScale();
         }
@@ -132,7 +136,7 @@ int main()
         MEventBus bus;
         atomic<bool> running{ true };
         window.setActive(false);
-        thread renderThread(renderingThread, &window, ref(consist.carriages), ref(running));
+        thread renderThread(renderingThread, &window, ref(consist), ref(running));
         thread simThread([&]() { simulator(consist, bus, running); });
         while (window.isOpen())
         {
@@ -142,6 +146,12 @@ int main()
                 {
                     running.store(false);
                     window.close();
+                }
+                else if (event->is<sf::Event::MouseButtonPressed>() || event->is<sf::Event::MouseButtonReleased>())
+                {
+                    for (auto& T : consist.carriages) {
+                        T->checkPreses(*event);
+                    }
                 }
                 else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
                 {

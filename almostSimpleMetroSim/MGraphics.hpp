@@ -3,7 +3,7 @@
 //////////////////////////////////////////////
 //////////////////////////////////////////////
 
-
+#pragma once
 
 
 
@@ -21,25 +21,14 @@ using namespace std;
 using namespace sf;
 
 namespace mg {
-    sf::Texture deEmpty;
-
-    void def() {
-        const unsigned char Data[] = {
-    0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d,
-    0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
-    0x08, 0x06, 0x00, 0x00, 0x00, 0x1f, 0x15, 0xc4, 0x89, 0x00, 0x00, 0x00,
-    0x0d, 0x49, 0x44, 0x41, 0x54, 0x08, 0x1d, 0x63, 0xf8, 0xff, 0xff, 0x3f,
-    0x03, 0x00, 0x08, 0xfc, 0x02, 0xfe, 0xe6, 0x0c, 0xff, 0xab, 0x00, 0x00,
-    0x00, 0x00, 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60
-        };
-        deEmpty.loadFromMemory(Data, sizeof(Data));
-    }
-    void nothing() {
+    inline sf::Texture deEmpty;
+    inline void nothing() {
         //cout << "works!\n";
     }
     class DrawBase {
     public:
-        void draw() { drawBase(); for (auto obj : Linked) { obj->draw(); } }
+        void draw() { drawBase(); for (auto obj : Linked) { obj->draw(); }
+        }
         void setPosition(Vector2f pos) { Vector2f delta = setPositionBase(pos); for (auto obj : Linked) obj->setPosition(obj->getPosition() + delta); }
 
         virtual Vector2f getPosition() { return Vector2f(0, 0); }
@@ -96,7 +85,7 @@ namespace mg {
 
     class Box : public DrawBase {
     public:
-        Box(Vector2f size, Vector2f pos, Color color, Font font, string text, RenderWindow* window) : icon(deEmpty), line(font) {
+        Box(Vector2f size, Vector2f pos, Color color, const Font& font, string text, RenderWindow* window) : icon(deEmpty), line(font) {
             this->window = window;
             body.setSize(size);
             body.setFillColor(color);
@@ -107,7 +96,7 @@ namespace mg {
 
             centerText(pos, size);
         }
-        Box(Vector2f size, Vector2f pos, Color color, Font font, string text, RenderWindow* window, Texture textur, Vector2f spriteOffset) : icon(textur), line(font) {
+        Box(Vector2f size, Vector2f pos, Color color, const Font& font, string text, RenderWindow* window, const Texture& textur, Vector2f spriteOffset) : icon(textur), line(font) {
             this->window = window;
             body.setSize(size);
             body.setFillColor(color);
@@ -165,10 +154,10 @@ namespace mg {
     class AnyShape : public DrawBase {
     public:
         AnyShape(RenderWindow* window, T shape) : shape(
-            
-            
-            
-            
+
+
+
+
             move(shape)) {
             this->window = window;
         }
@@ -191,109 +180,127 @@ namespace mg {
         T shape;
     };
 
+    /*class Slider : public Button {
+     public:
+         Slider(Vector2f size, Vector2f pos, Color color, Font font, string text, RenderWindow* window, void(*callback)(void))
+             : Button(size, pos, Color::Transparent, font, text, window, callback) {
+             handle.setRadius(size.y / 2.0f);
+             handle.setFillColor(Color::Red);
+             handle.setPosition(body.getPosition());
+         }
+     protected:
+         void onPress() override {
+             Vector2i mousePos = Mouse::getPosition(*window);
+
+             (*work)();
+             Vector2f setPositionBase(Vector2f pos) override {
+                 Vector2f delta = pos - body.getPosition();
+                 handle.setPosition(handle.getPosition() + delta);
+                 return delta;
+             }
+             void drawBase() override {
+                 window->draw(body);
+                 window->draw(handle);
+             }
+             CircleShape handle;
+             float percent = 0.0f;
+         }
+     };*/
+
     class Button : public Box {
     public:
-        Button(Vector2f size, Vector2f pos, Color color, Font font, string text, RenderWindow* window, void(*callback)(void))
-            : Box(size, pos, color, font, text, window) {
-            work = callback;
+        Button(Vector2f size, Vector2f pos, Color color, const Font& font, string text,
+            RenderWindow* window, std::function<void()> callback)
+            : Box(size, pos, color, font, text, window), work(callback) {
         }
 
-        Button(Vector2f size, Vector2f pos, Color color, Font font, string text, RenderWindow* window, Texture spr, Vector2f spriteOffset, void(*callback)(void))
-            : Box(size, pos, color, font, text, window, spr, spriteOffset) {
-            work = callback;
+        Button(Vector2f size, Vector2f pos, Color color, const Font& font, string text,
+            RenderWindow* window, const Texture& spr, Vector2f spriteOffset, std::function<void()> callback)
+            : Box(size, pos, color, font, text, window, spr, spriteOffset), work(callback) {
         }
-        void force() {
-            (*work)();
-        }
-        void checkPress(Event& press) {
+
+        void force() { work(); }
+
+        void checkPress(const Event& press) {
             if (const auto* mouseEvent = press.getIf<Event::MouseButtonPressed>()) {
                 Vector2i mousePos = mouseEvent->position;
                 FloatRect bounds = body.getGlobalBounds();
-
                 if (bounds.contains(Vector2f(mousePos.x, mousePos.y))) {
                     onPress();
                 }
             }
         }
+
     protected:
-        virtual void onPress() {
-            (*work)();
-        }
-        void(*work)(void);
+        virtual void onPress() { work(); }
+        std::function<void()> work;
     };
-
-   /*class Slider : public Button {
-    public:
-        Slider(Vector2f size, Vector2f pos, Color color, Font font, string text, RenderWindow* window, void(*callback)(void))
-            : Button(size, pos, Color::Transparent, font, text, window, callback) {
-            handle.setRadius(size.y / 2.0f);
-            handle.setFillColor(Color::Red);
-            handle.setPosition(body.getPosition());
-        }
-    protected:
-        void onPress() override {
-            Vector2i mousePos = Mouse::getPosition(*window);
-
-            (*work)();
-            Vector2f setPositionBase(Vector2f pos) override {
-                Vector2f delta = pos - body.getPosition();
-                handle.setPosition(handle.getPosition() + delta);
-                return delta;
-            }
-            void drawBase() override {
-                window->draw(body);
-                window->draw(handle);
-            }
-            CircleShape handle;
-            float percent = 0.0f;
-        }
-    };*/
 
     class TickBox : public Button {
     public:
-        TickBox(Vector2f size, Vector2f pos, Font font, string text, RenderWindow* window, void(*callback)(void), Texture& boxTexture, Texture& checkTexture)
-            : Button(size, pos, Color::Transparent, font, text, window, callback), box(boxTexture), check(checkTexture) {
+        TickBox(Vector2f size, Vector2f pos, const Font& font, string text,
+            RenderWindow* window, std::function<void()> callback,
+            Texture& boxTexture, Texture& checkTexture)
+            : Button(size, pos, Color::Transparent, font, text, window, callback),
+            box(boxTexture), check(checkTexture), NegativeCheck(checkTexture) {
             box.setPosition(body.getPosition());
             check.setPosition(body.getPosition());
             offsetText(Vector2f(box.getLocalBounds().size.y + 1, 0));
+            negCheck = false;
         }
 
-        bool isTicked() {
-            return ticked;
+        TickBox(Vector2f size, Vector2f pos, const Font& font, string text,
+            RenderWindow* window, std::function<void()> callback,
+            Texture& boxTexture, Texture& checkTexture, Texture& negCheckTexture)
+            : Button(size, pos, Color::Transparent, font, text, window, callback),
+            box(boxTexture), check(checkTexture), NegativeCheck(negCheckTexture) {
+            box.setPosition(body.getPosition());
+            check.setPosition(body.getPosition());
+            NegativeCheck.setPosition(body.getPosition());
+            offsetText(Vector2f(box.getLocalBounds().size.y + 1, 0));
+            negCheck = true;
         }
-        void tick() {
-            ticked = !ticked;
-        }
+
+        bool isTicked() { return ticked; }
+
+        void tick() { ticked = !ticked; }
+
         void forceTrue() {
-            if (!ticked) {
-                (*work)();
-            }
+            if (!ticked) work();
             ticked = true;
         }
-        void forceFalse() {
-            ticked = false;
-        }
+
+        void forceFalse() { ticked = false; }
+
     protected:
         void onPress() override {
             tick();
-            (*work)();
+            work();
         }
 
         Vector2f setPositionBase(Vector2f pos) override {
             Vector2f delta = pos - body.getPosition();
             box.setPosition(box.getPosition() + delta);
             check.setPosition(check.getPosition() + delta);
+            NegativeCheck.setPosition(NegativeCheck.getPosition() + delta);
             return delta;
         }
+
         void drawBase() override {
             window->draw(box);
             if (ticked) {
                 window->draw(check);
             }
+            else if (negCheck) {
+                window->draw(NegativeCheck);
+            }
         }
+
         Sprite box;
         Sprite check;
+        Sprite NegativeCheck;
+        bool negCheck = false;
         bool ticked = false;
     };
-    
+
 }
